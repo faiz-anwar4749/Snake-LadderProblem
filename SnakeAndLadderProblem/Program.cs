@@ -7,6 +7,8 @@ namespace SnakeAndLadderProblem
         public const int NoPlay = 0;
         public const int Ladder = 1;
         public const int Snake = 2;
+        public const int WinPosition = 100;
+        public const int StartPosition = 0;
         public static int RollTheDie()
         {
             Random random = new Random();
@@ -36,20 +38,23 @@ namespace SnakeAndLadderProblem
             Console.WriteLine("Welcome to the Snake and Ladder Simulator");
             int initialPosition = 0, nextPosition;
             int count = 0;
-            while (initialPosition < 100)
+            while (initialPosition < WinPosition)
             {
                 int numOnDie = RollTheDie();
                 count++;
                 int toAdd = newPosition(numOnDie);
-                nextPosition = initialPosition + toAdd;
-                //checking if player has moved below position 0
+                if (initialPosition + toAdd > WinPosition)
+                    nextPosition = initialPosition;
+                else
+                    nextPosition = initialPosition + toAdd;
+
                 if (nextPosition < 0)
                     initialPosition = 0;
                 else
                     initialPosition = nextPosition;
             }
-            Console.WriteLine("Number on the Die rolled = " + count);
-            Console.WriteLine("Current position = " + initialPosition);
+            Console.WriteLine("Number on the total Die rolled = " + count);
+            Console.WriteLine("Final position of the player: " + initialPosition);
         }
     }
 }
